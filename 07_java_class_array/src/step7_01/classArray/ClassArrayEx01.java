@@ -15,7 +15,7 @@ public class ClassArrayEx01 {
 		// 클래스 배열 생성 방법
 		// 클래스명[] 객체명 = new 클래스명[배열의 크기];
 		
-		Product[] productList = new Product[3];
+		Product[] productList = new Product[3]; // 클래스 배열 생성, 초기값은 null
 		
 		productList[0] = new Product(); // 직접대입
 		

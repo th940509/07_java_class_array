@@ -1,5 +1,5 @@
 package step7_01.classArray;
-//2021/04/16 17:35 ~ 
+//2021/04/16 17:35 ~ 18:06
 
 class Client_1{
 	
@@ -31,10 +31,14 @@ public class ClassArrayEx03내정답 {
 		clients[1].setData("이만수",20);
 		clients[2].setData("박영희",70);
 		
-		for (int i = 0 ; i < clients.length; i++) {
+		for (int i = 0 ; i < clients.length; i++) { 
 			clients[i].printData();
 		}
 
 	}
 
 }
+
+//김철수: 100
+//이만수: 20
+//박영희: 70
