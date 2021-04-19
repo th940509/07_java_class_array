@@ -1,5 +1,6 @@
 package step7_01.classArray;
 //2021/04/16 17:12 ~ 17:21
+//2021/04/19 13:55 ~ 13:57
 class Card_1{
 	
 	int num;
@@ -18,7 +19,7 @@ public class ClassArrayEx02내정답 {
 		 // for문 활용
 		 for (int i = 0; i < 10;  i++) {
 			 arr[i] = new Card_1();
-			 arr[i].num = (i + 1);
+			 arr[i].num = (i + 1); //arr[i]의 num
 			 arr[i].shape = "클로버";
 		 }
 
@@ -31,3 +32,4 @@ public class ClassArrayEx02내정답 {
 	}
 
 }
+ 

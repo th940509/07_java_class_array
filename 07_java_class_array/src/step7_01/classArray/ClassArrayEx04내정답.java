@@ -1,5 +1,6 @@
 package step7_01.classArray;
 //2021/04/16 18:08 ~ 18:14
+//2021/04/19 13:59 ~ 14:05
 import java.util.Scanner;
 
 class User1_1{
@@ -36,7 +37,7 @@ public class ClassArrayEx04내정답 {
 			System.out.println(user1[i].id + " " + user1[i].money);
 		} 
 		
-		User1_1 temp = user1[1];
+		User1_1 temp = user1[1]; // temp에 user1[1]의 링크(주소) 공유
 		temp.id = "zxcv1234";
 		System.out.println("=====================================");
 		

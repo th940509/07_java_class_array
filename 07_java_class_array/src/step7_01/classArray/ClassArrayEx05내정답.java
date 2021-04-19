@@ -1,5 +1,6 @@
 package step7_01.classArray;
 //2021/04/16 18:15 ~ 18:24
+//2021/04/19 14:07 ~ 14:13
 import java.util.Scanner;
 
 class User2_1 {
@@ -35,10 +36,10 @@ public class ClassArrayEx05내정답 {
 			
 			if (sel == 1) {
 				System.out.println("이름을 입력하세요 ");
-				user2[usrCnt].id = scan.next(); // user2[0].id = 이소영
+				user2[usrCnt].id = scan.next(); // user2[0].id = 이소영 / user[1].id = 강동원
 				System.out.println("금액을입력하세요 ");
-				user2[usrCnt].money = scan.nextInt(); // user2[0].money = 10000
-				usrCnt++; // 0+1 = 1
+				user2[usrCnt].money = scan.nextInt(); // user2[0].money = 10000 / user2[0].money = 20000
+				usrCnt++; // 0+1 = 1 / 1+1 = 2
 			}
 			else if (sel == 2) {
 				System.out.println("인덱스를 입력하세요 ");
@@ -46,10 +47,10 @@ public class ClassArrayEx05내정답 {
 				for (int i = index; i < usrCnt - 1; i++) { // i=0; i <1-1; i++ (성립하지않음)
 					user2[i] = user2[i + 1];
 				}
-				usrCnt--; // index가 0일경우 / usrCnt = 0
+				usrCnt--; // usrCnt가 1이고, index가 0일경우 / usrCnt = 0
 			}
 			else if (sel == 3) {
-				for (int i = 0; i < usrCnt; i++) { // i=0; i<1; i++ (i=0일때만 성립)
+				for (int i = 0; i < usrCnt; i++) { // i=0; i<1; i++ 
 					System.out.println(user2[i].id + user2[i].money); // user2[0].id + user2[0].money ->  이소영 + 10000 출력
 				}
 			}

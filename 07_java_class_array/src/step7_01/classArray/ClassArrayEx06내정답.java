@@ -1,5 +1,6 @@
 package step7_01.classArray;
 //2021/04/16 18:25 ~ 18:32
+//2021/04/19 14:13 ~ 14:19
 class Member_1{
 	
 	String name;
