@@ -20,18 +20,18 @@ public class ClassArrayEx06내정답 {
 
 	public static void main(String[] args) {
 
-		MemberManager_1 mg = new MemberManager_1();	//클래스 선언
+		MemberManager_1 mg = new MemberManager_1();	//클래스 선언,  mg안에 memberList가 있음.
 		Member_1 m1 = new Member_1(); //클래스 선언
-		mg.memberList[0] = m1; // memberList9[0]에만 Member_1 클래스 대입
+		mg.memberList[0] = m1; // memberList9[0]에게 m1의 링크(주소) 대입. m1,memberList 두개중에 1개만 바꿔도 같이 바뀜. 주소 공유
 		m1.name = "김철수"; // memberList[0].name = 김철수 /  memberList[0].num = 1001
 		m1.num = 1001;
 		
-		m1 = new Member_1();
+		m1 = new Member_1(); // 새로운 링크를 대입.
 		mg.memberList[1] = m1;
 		m1.name = "이만수"; // 이만수/1002
 		m1.num = 1002;
 		
-		m1 = new Member_1();
+		m1 = new Member_1(); // 새로운 링크를 대입.
 		mg.memberList[2] = m1;
 		m1.name = "박영희"; // 박영희/1003
 		m1.num = 1003;
