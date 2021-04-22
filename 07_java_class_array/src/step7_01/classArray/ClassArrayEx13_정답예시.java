@@ -4,6 +4,7 @@ import java.io.BufferedReader;
 import java.io.File;
 import java.io.FileReader;
 import java.io.FileWriter;
+//import java.io.IOException;
 import java.util.Scanner;
 
 class StudentEx{
@@ -205,67 +206,78 @@ public class ClassArrayEx13_정답예시 {
 			else if (sel == 3) { // 정렬
 				
 				manager.sort_data(); // 탈퇴를 하지 않았을 경우 stdCnt = 1. i=0 일때만 성립.
-				manager.print_StudentEx();
+				                     // if(list[0].id.compareTo(list[0].id > 0) -> 문자열 비교
+				                     // stdCnt = 1 일때는 위의 if문 성립X
+				manager.print_StudentEx(); // stdCnt = 1, i=0일때만 성립.
+				                           // list[0].print_data();
+				                           // System.out.println("이름 : " + id + " 비밀번호 : " + pw) 출력
 				
 			}
-			else if (sel == 4) {
+			else if (sel == 4) { // 출력
 				
-				manager.print_StudentEx();
+				manager.print_StudentEx();  // stdCnt = 1, i=0일때만 성립.
+                                            // list[0].print_data();
+                                            // System.out.println("이름 : " + id + " 비밀번호 : " + pw) 출력
 				
 			}
-			else if (sel == 5) {
+			else if (sel == 5) { // 저장
 				
-                if (manager.stdCnt == 0) continue;
+                if (manager.stdCnt == 0) continue; // stdCnt = 0 일 경우 continue
 				
                 try {
                 	
-					FileWriter fw = new FileWriter("StudentEx_manager.txt");
-					String data = manager.out_data();
-					if (!data.equals("")) {
-						fw.write(data);
+					FileWriter fw = new FileWriter("StudentEx_manager.txt"); // 파일 입력
+					String data = manager.out_data(); // out_data에서 id, pw 정보를 data에 저장
+					if (!data.equals("")) { // ?
+						fw.write(data); // write메서드로 문자열 데이터 입력 
 						System.out.println(data);
 					}
 					fw.close();	
 					
-				} catch (Exception e) {e.printStackTrace();}
+				} catch (Exception e) {e.printStackTrace();} 
+                //finally {
+    			//try {fw.close();} catch (IOException e) {e.printStackTrace();} // [중요] 파일 객체 종료
+    		    //}  사용x?
                 
 			}
-			else if(sel == 6) {
+			else if(sel == 6) { // 로드
 				
 				try {
 					
-					File file = new File("StudentEx_manager.txt");
+					File file = new File("StudentEx_manager.txt"); // 파일 객체 생성
 					
-					if (file.exists()) {
+					if (file.exists()) { // 파일이 존재하면
 						
-						FileReader fr = new FileReader(file);
+						FileReader fr = new FileReader(file); // FileReader fr = null / fr = new FileReader(file) 붙여서 사용
 						BufferedReader br = new BufferedReader(fr);
 						
-						String line = br.readLine();
-						int count = Integer.parseInt(line);
-						StudentEx [] temp = new StudentEx[count];
+						String line = br.readLine(); // 한줄 불러오기
+						int count = Integer.parseInt(line); // count에 Line을 숫자로 바꿔 대입 (1째줄: stdCnt = 1)
+						StudentEx [] temp = new StudentEx[count]; // count(stdCnt) = 1 숫자 만큼의 temp 배열 생성
 						
-						for (int i = 0; i < count; i++) {
-							temp[i] = new StudentEx();
-							line = br.readLine();
-							String value[] = line.split(",");
-							temp[i].id = value[0];
-							temp[i].pw = value[1];
+						for (int i = 0; i < count; i++) { // count=1, i=0일때 성립
+							temp[i] = new StudentEx(); // temp[0] = StudentEx객체 대입
+							line = br.readLine(); // 그 다음줄 불러오기 (list[i].id, list[i].pw) => asdf,zxcv
+							String value[] = line.split(","); //  , 기준으로 나누기
+							temp[i].id = value[0]; // asdf
+							temp[i].pw = value[1]; // zxcv
 						}
 						
-						fr.close();
+						fr.close(); // 왜 여기서...닫나요...........
 						br.close();
 						
-						manager.load_StudentEx(temp , count);
+						manager.load_StudentEx(temp , count); // stdCnt = 1 , list에 temp배열 대입 (asdf/zxcv)
 						
 					}
 					
-					manager.print_StudentEx();
+					manager.print_StudentEx(); // stdCnt=1, i=0일때 성립
+					                           // list[0].print_data();
+					                           // System.out.println("이름 : " + id + " 비밀번호 : " + pw);
 				}
 				catch (Exception e) {e.printStackTrace();}
 									
 			}
-			else if (sel == 7) {
+			else if (sel == 7) { // 종료
 				System.out.println("종료");
 				break;
 			}
