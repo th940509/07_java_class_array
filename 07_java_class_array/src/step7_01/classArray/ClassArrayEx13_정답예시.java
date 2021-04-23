@@ -60,12 +60,12 @@ class Manager {
 			list = null;
 		}
 		else if (stdCnt > 1) {
-			StudentEx [] temp = list;
+			StudentEx [] temp = list; // 탈퇴할 id 기준으로 앞쪽 정보 저장
 			list = new StudentEx[stdCnt -1];
 			for (int i = 0; i < index; i++) {
 				list[i] = temp[i];
 			}
-			for (int i = index; i < stdCnt -1; i++) {
+			for (int i = index; i < stdCnt -1; i++) { // 탈퇴할 id 기준으로 뒤쪽 정보 저장
 				list[i] = temp[i + 1];
 			}
 			temp = null;
@@ -126,10 +126,11 @@ class Manager {
 	
 	void sort_data() {
 		
-		for (int i = 0; i < stdCnt; i++) {
-			for (int n = 0; n < stdCnt ; n++) {
-				if (list[i].id.compareTo(list[n].id) > 0) {
-					StudentEx temp = list[i];
+		for (int i = 0; i < stdCnt; i++) { //stdCnt=2일때, i= 0,1 성립
+			for (int n = 0; n < stdCnt ; n++) { // i=0일때  n = 0,1 / i=1일때 n=0,1 
+				//list[0].id = asdf // list[1].id = qwer
+				if (list[i].id.compareTo(list[n].id) > 0) { // list[1].id.compareTo(list[0].id) > 0  성립
+					StudentEx temp = list[i]; // temp = 
 					list[i] = list[n];
 					list[n] = temp;
 				}
