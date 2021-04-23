@@ -4,7 +4,7 @@ import java.io.BufferedReader;
 import java.io.File;
 import java.io.FileReader;
 import java.io.FileWriter;
-//import java.io.IOException;
+import java.io.IOException;
 import java.util.Scanner;
 
 class StudentEx{
@@ -31,7 +31,7 @@ class Manager {
 	
 	StudentEx[] list = null;
 	int stdCnt = 0;
-	
+	// 1번째 / list 배열에 id, pw 저장
 	void add_StudentEx(StudentEx st) {  // temp를 대입하기 위해서 temp의 변수 동일해야 함.
 		//167번줄 StudentEx temp = new StudentEx(); -> temp의 변수 StudentEx
 		
@@ -46,7 +46,7 @@ class Manager {
 			}
 			temp = null;
 		}
-		list[stdCnt] = st;
+		list[stdCnt] = st; // list[0]번 째에 st(temp)의 주소(링크) 공유
 		stdCnt++;
 		
 	}
@@ -55,7 +55,7 @@ class Manager {
 	
 	StudentEx remove_StudentEx (int index) {
 		
-		StudentEx del_st = list[index];
+		StudentEx del_st = list[index]; // 링크 공유
 		if (stdCnt == 1) {
 			list = null;
 		}
@@ -93,8 +93,7 @@ class Manager {
 	
 	
 	
-	void print_StudentEx() {
-		
+	void print_StudentEx() { //list 배열에 저장되어있는 id,pw 출력 기능 메서드
 		for (int i = 0; i < stdCnt ;i++) {
 			list[i].print_data();
 		}
@@ -164,7 +163,7 @@ public class ClassArrayEx13_정답예시 {
 			System.out.println("1.가입 2.탈퇴 3.정렬 4.출력 5.저장 6.로드 7.종료");
 			int sel = scan.nextInt();
 			
-			if (sel == 1) { // 가입
+			if (sel == 1) { // 가입: check_id, add_StudentEx 메서드 사용
 				
 				StudentEx temp = new StudentEx(); // StudentEx 객체 대입
 				System.out.println("[가입] id 를 입력하세요 >>> "); //asdf
@@ -174,10 +173,10 @@ public class ClassArrayEx13_정답예시 {
 				if(check == -1) {
 					System.out.println("[가입] pw 를 입력하세요 >>> "); // zxcv
 					temp.pw = scan.next(); // temp.pw = zxcv
-					manager.add_StudentEx(temp); // list = new StudentEx[1] / list[0] = temp / stdCnt = 0+1 = 1
+					manager.add_StudentEx(temp); // list = new StudentEx[1] / list[0] = temp의 주소(링크) / stdCnt = 0+1 = 1
 					System.out.println(temp.id + "님 가입을 환영합니다.");
 				}
-				else {
+				else { // check가 -1이 아닐경우 id중복
 					System.out.println("중복아이디 입니다.");
 				}	
 				
@@ -224,32 +223,35 @@ public class ClassArrayEx13_정답예시 {
 				
                 if (manager.stdCnt == 0) continue; // stdCnt = 0 일 경우 continue
 				
+                String fileName = "StudentEx_manager.txt";
+                FileWriter fw = null;
+                
                 try {
-                	
-					FileWriter fw = new FileWriter("StudentEx_manager.txt"); // 파일 입력
+                	fw = new FileWriter("StudentEx_manager.txt"); // 파일 입력
 					String data = manager.out_data(); // out_data에서 id, pw 정보를 data에 저장
 					if (!data.equals("")) { // ?
 						fw.write(data); // write메서드로 문자열 데이터 입력 
 						System.out.println(data);
 					}
-					fw.close();	
-					
-				} catch (Exception e) {e.printStackTrace();} 
-                //finally {
-    			//try {fw.close();} catch (IOException e) {e.printStackTrace();} // [중요] 파일 객체 종료
-    		    //}  사용x?
+				} catch (Exception e) {
+					e.printStackTrace();
+				}  finally {
+                	try {fw.close();} catch (IOException e) {e.printStackTrace();} // [중요] 파일 객체 종료
+    		    }  
                 
 			}
 			else if(sel == 6) { // 로드
 				
+				File file = new File("StudentEx_manager.txt"); // 파일 객체 생성
+				FileReader fr = null;
+				BufferedReader br = null;
+				
 				try {
-					
-					File file = new File("StudentEx_manager.txt"); // 파일 객체 생성
 					
 					if (file.exists()) { // 파일이 존재하면
 						
-						FileReader fr = new FileReader(file); // FileReader fr = null / fr = new FileReader(file) 붙여서 사용
-						BufferedReader br = new BufferedReader(fr);
+						fr = new FileReader(file); // FileReader fr = null / fr = new FileReader(file) 붙여서 사용?
+						br = new BufferedReader(fr);
 						
 						String line = br.readLine(); // 한줄 불러오기
 						int count = Integer.parseInt(line); // count에 Line을 숫자로 바꿔 대입 (1째줄: stdCnt = 1)
@@ -263,8 +265,6 @@ public class ClassArrayEx13_정답예시 {
 							temp[i].pw = value[1]; // zxcv
 						}
 						
-						fr.close(); // 왜 여기서...닫나요...........
-						br.close();
 						
 						manager.load_StudentEx(temp , count); // stdCnt = 1 , list에 temp배열 대입 (asdf/zxcv)
 						
@@ -274,8 +274,12 @@ public class ClassArrayEx13_정답예시 {
 					                           // list[0].print_data();
 					                           // System.out.println("이름 : " + id + " 비밀번호 : " + pw);
 				}
-				catch (Exception e) {e.printStackTrace();}
-									
+				catch (Exception e) {
+					e.printStackTrace();
+				} finally {
+					try {br.close();} catch (IOException e) {e.printStackTrace();}
+					try {fr.close();} catch (IOException e) {e.printStackTrace();}
+				}
 			}
 			else if (sel == 7) { // 종료
 				System.out.println("종료");
