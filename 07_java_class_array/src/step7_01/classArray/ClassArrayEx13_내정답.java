@@ -81,7 +81,7 @@ class Manager_1{
 		}
 	}	
 	
-//	String out_data() {}
+	//String out_data() {}
 	
 	void sort_data() {
 		
