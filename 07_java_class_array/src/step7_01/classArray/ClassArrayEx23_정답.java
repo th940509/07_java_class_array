@@ -63,28 +63,36 @@ class StudentManager{
 	
 	String out_data() {
 		String data = "";
-		int count = studentList.size();
-		if (count == 0){
+		int count = studentList.size(); // studentList의 데이터 개수를 반환
+		if (count == 0){ 
 			return data;
 		}
-		data += count;
-		data += "\n";
-		for (int i = 0; i < count; i++) {
-			data += studentList.get(i).id;
+		data += count; // +1
+		data += "\n"; 
+		for (int i = 0; i < count; i++) { // i=0; i<1; i++ -> i=0일때만 성립
+			data += studentList.get(i).id; // studentList.get(0).id
 			data += ",";
-			data += studentList.get(i).pw;
-			if (count - 1 != i) {
+			data += studentList.get(i).pw; // studentList.get(0).pw
+			if (count - 1 != i) { // count = 1 일때 0 != 0 성립X
 				data += "\n";
 			}
 		}
-		return data;
+		return data; // data 반환
 	}
 	
 	
 	void sort_data() {
-		/*
-              직접 구현해보세요.
-        */
+		for(int i=0; i<studentList.size(); i++) {
+			for(int j=0; j<studentList.size(); j++) {
+				if(studentList.get(i).id.compareTo(studentList.get(j).id) > 0) {
+					ArrayList<StudentVO> temp = new ArrayList<>();
+					temp.add(studentList.get(i));
+					studentList.set(i, studentList.get(j));
+					studentList.set(j, temp.get(0));
+					temp.clear();
+				}
+			}
+		}
 	}
 	
 	
@@ -129,7 +137,7 @@ public class ClassArrayEx23_정답 {
 				}	
 				
 			}
-			else if (sel == 2) {
+			else if (sel == 2) { // 탈퇴
 				
 				manager.print_student();
 				
@@ -148,26 +156,26 @@ public class ClassArrayEx23_정답 {
 				}
 				
 			}
-			else if (sel == 3) {
+			else if (sel == 3) { //정렬
 				
 				manager.sort_data();
 				manager.print_student();
 				
 			}
-			else if (sel == 4) {
+			else if (sel == 4) { // 출력
 				
 				manager.print_student();
 				
 			}
-			else if (sel == 5) {
+			else if (sel == 5) { // 저장
 
+				String fileName = "student_manager_studentList.txt";
 				FileWriter fw = null;
 				
                 if (manager.get_size() == 0) return;
 				
                 try {
-					
-                	fw = new FileWriter("student_manager_studentList.txt");
+                	fw = new FileWriter(fileName); // 파일 생성 객체
 					String data = manager.out_data();
 					
 					if (!data.equals("")) {
@@ -182,35 +190,37 @@ public class ClassArrayEx23_정답 {
                 	try {fw.close();} catch (IOException e) {e.printStackTrace();}	
                 }
 			}
-			else if (sel == 6) {
+			else if (sel == 6) { // 로드
 				
 				FileReader fr = null;
 				BufferedReader br = null;
+				File file = new File("student_manager_studentList.txt");
+				
 				try {
 					
-					File file = new File("student_manager_studentList.txt");
 					
 					if (file.exists()) {
 						
 						fr = new FileReader(file);
 						br = new BufferedReader(fr);
-						ArrayList<StudentVO> studentList = new ArrayList<StudentVO>();
 						
-						String line = br.readLine();
-						int count = Integer.parseInt(line);
+						ArrayList<StudentVO> studentList = new ArrayList<StudentVO>(); // arrayList 생성
+						
+						String line = br.readLine(); // 1줄 불러오기
+						int count = Integer.parseInt(line); // 1번째줄 정수로 변경 
 						
 						for (int i = 0; i < count; i++) {
-							StudentVO temp = new StudentVO();
+							StudentVO temp = new StudentVO(); // temp클래스 생성
 							line = br.readLine();
-							String value[] = line.split(",");
+							String value[] = line.split(","); // ,로 나눈 후 String 배열에 대입
 							temp.id = value[0];
 							temp.pw = value[1];
-							studentList.add(temp);
+							studentList.add(temp); // arrayList에 temp temp의 값 추가
 						}
-						manager.load_student(studentList);
+						manager.load_student(studentList); // 새로 만든 studentList의 값 대입
 						
 					}
-					manager.print_student();
+					manager.print_student(); // 출력
 					
 				}
 				catch (Exception e) {e.printStackTrace();}
