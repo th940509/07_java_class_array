@@ -81,7 +81,7 @@ class StudentManager{
 	}
 	
 	
-	void sort_data() {
+	void sort_data() { // 직접 구현해보세요
 		for(int i=0; i<studentList.size(); i++) {
 			for(int j=0; j<studentList.size(); j++) {
 				if(studentList.get(i).id.compareTo(studentList.get(j).id) > 0) {
