@@ -82,14 +82,15 @@ class StudentManager{
 	
 	
 	void sort_data() { // 직접 구현해보세요
-		for(int i=0; i<studentList.size(); i++) {
-			for(int j=0; j<studentList.size(); j++) {
-				if(studentList.get(i).id.compareTo(studentList.get(j).id) > 0) {
-					ArrayList<StudentVO> temp = new ArrayList<>();
-					temp.add(studentList.get(i));
-					studentList.set(i, studentList.get(j));
-					studentList.set(j, temp.get(0));
-					temp.clear();
+		for(int i=0; i<studentList.size(); i++) { // 5번 가입 -> studentList.size = 5 / i = 0,1,2,3,4
+			for(int j=0; j<studentList.size(); j++) { // j = 0,1,2,3,4
+				//1:aa 2:cc 3:dd 4:ee 5:bb
+				if(studentList.get(i).id.compareTo(studentList.get(j).id) > 0) { 
+					StudentVO temp = new StudentVO(); // 클래스 생성
+					temp = studentList.get(i); // temp에 studentList get(0) 추가
+					studentList.set(i, studentList.get(j)); // studentList.set(0,studentList.get(0) 값 수정
+					studentList.set(j, temp);
+					temp = null; // temp 값 삭제
 				}
 			}
 		}
@@ -119,18 +120,18 @@ public class ClassArrayEx23_정답 {
 			System.out.println("1.가입 2.탈퇴 3.정렬 4.출력 5.저장 6.로드 7.종료");
 			int sel = scan.nextInt();
 			
-			if (sel == 1) { // 가입
+			if (sel == 1) { // 가입 ab / aa
 				
-				StudentVO temp = new StudentVO();
+				StudentVO temp = new StudentVO(); // 클래스 생성
 				System.out.println("[가입] id 를 입력하세요 >>> ");
-				temp.id = scan.next();			
-				int check =  manager.check_id(temp); // 
+				temp.id = scan.next();	//temp.id에 위의 아이디를 저장
+				int check =  manager.check_id(temp); 
 				
 				if (check == -1) {
 					System.out.println("[가입] pw 를 입력하세요 >>> ");
 					temp.pw = scan.next();
 					manager.add_student(temp);	
-					System.out.println(temp.id + "님 가입을 환영합니다.");
+					System.out.println(temp.id + "님 가입을 환영합니다."); // (1) studentList의 크기 [1] / (2) 크기 [2]
 				}
 				else {
 					System.out.println("중복아이디 입니다.");
