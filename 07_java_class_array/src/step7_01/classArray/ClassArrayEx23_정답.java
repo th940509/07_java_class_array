@@ -35,9 +35,9 @@ class StudentManager{
 	
 	
 	StudentVO remove_student(int index) {
-		StudentVO del_st = studentList.get(index);
-		studentList.remove(index); // remove 메서드로 삭제
-		return del_st;
+		StudentVO del_st = studentList.get(index); // get 메서드로 index 값 얻은 후 del_st에 대입
+		studentList.remove(index); // index위치 remove 메서드로 삭제
+		return del_st; // del_st 값 반환
 	}
 	
 	
@@ -62,18 +62,19 @@ class StudentManager{
 	
 	
 	String out_data() {
-		String data = "";
+		String data = ""; // 
 		int count = studentList.size(); // studentList의 데이터 개수를 반환
 		if (count == 0){ 
 			return data;
 		}
-		data += count; // +1
+		data += count; // ex) 3
 		data += "\n"; 
-		for (int i = 0; i < count; i++) { // i=0; i<1; i++ -> i=0일때만 성립
+		for (int i = 0; i < count; i++) { // i=0; i<3; i++ -> i=0,1,2일때만 성립
 			data += studentList.get(i).id; // studentList.get(0).id
 			data += ",";
 			data += studentList.get(i).pw; // studentList.get(0).pw
 			if (count - 1 != i) { // count = 1 일때 0 != 0 성립X
+				                  // id,pw 간의 줄 점프
 				data += "\n";
 			}
 		}
@@ -86,10 +87,10 @@ class StudentManager{
 			for(int j=0; j<studentList.size(); j++) { // j = 0,1,2,3,4
 				//1:aa 2:cc 3:dd 4:ee 5:bb
 				if(studentList.get(i).id.compareTo(studentList.get(j).id) > 0) { 
-					StudentVO temp = new StudentVO(); // 클래스 생성
-					temp = studentList.get(i); // temp에 studentList get(0) 추가
-					studentList.set(i, studentList.get(j)); // studentList.set(0,studentList.get(0) 값 수정
-					studentList.set(j, temp);
+					StudentVO temp = new StudentVO(); // 클래스 생성 * arrayList 생성 시 오류남
+					temp = studentList.get(i); // temp에 크기가 큰 값 대입
+					studentList.set(i, studentList.get(j)); // i 자리에 작은 값 대입
+					studentList.set(j, temp); // j 자리에 temp(크기가 큰 값) 대입
 					temp = null; // temp 값 삭제
 				}
 			}
@@ -120,7 +121,7 @@ public class ClassArrayEx23_정답 {
 			System.out.println("1.가입 2.탈퇴 3.정렬 4.출력 5.저장 6.로드 7.종료");
 			int sel = scan.nextInt();
 			
-			if (sel == 1) { // 가입 ab / aa
+			if (sel == 1) { // 가입 check_id, add_student 메서드 사용
 				
 				StudentVO temp = new StudentVO(); // 클래스 생성
 				System.out.println("[가입] id 를 입력하세요 >>> ");
@@ -138,16 +139,16 @@ public class ClassArrayEx23_정답 {
 				}	
 				
 			}
-			else if (sel == 2) { // 탈퇴
+			else if (sel == 2) { // 탈퇴 print_student, check_id, remove_student 메서드 사용
 				
 				manager.print_student();
 				
-				StudentVO temp = new StudentVO();
+				StudentVO temp = new StudentVO(); // 클래스 생성
 				
 				System.out.println("[탈퇴] id 를 입력하세요 >>> ");
 				temp.id = scan.next();	
 				
-				int check = manager.check_id(temp);
+				int check = manager.check_id(temp); 
 				if (check == -1) {
 					System.out.println("없는 아이디입니다.");
 				}
@@ -173,13 +174,14 @@ public class ClassArrayEx23_정답 {
 				String fileName = "student_manager_studentList.txt";
 				FileWriter fw = null;
 				
-                if (manager.get_size() == 0) return;
+                if (manager.get_size() == 0) return; // 가입하지 않았을 경우
 				
                 try {
                 	fw = new FileWriter(fileName); // 파일 생성 객체
-					String data = manager.out_data();
+					String data = manager.out_data(); // out_data -> data 반환
+					                                  // String data에 data 반환된 값 대입
 					
-					if (!data.equals("")) {
+					if (!data.equals("")) { // data가 ""와 다를경우 성립
 						fw.write(data);
 						System.out.println(data);
 					}
@@ -193,9 +195,9 @@ public class ClassArrayEx23_정답 {
 			}
 			else if (sel == 6) { // 로드
 				
-				FileReader fr = null;
-				BufferedReader br = null;
-				File file = new File("student_manager_studentList.txt");
+				File file = new File("student_manager_studentList.txt"); // 파일 객체 생성
+				FileReader fr = null; // 파일 읽어오기
+				BufferedReader br = null; // 텍스트 읽어오기
 				
 				try {
 					
@@ -209,19 +211,20 @@ public class ClassArrayEx23_정답 {
 						
 						String line = br.readLine(); // 1줄 불러오기
 						int count = Integer.parseInt(line); // 1번째줄 정수로 변경 
+						                                    // count = studentList.Size
 						
 						for (int i = 0; i < count; i++) {
-							StudentVO temp = new StudentVO(); // temp클래스 생성
+							StudentVO temp = new StudentVO(); // temp 클래스 생성
 							line = br.readLine();
 							String value[] = line.split(","); // ,로 나눈 후 String 배열에 대입
 							temp.id = value[0];
 							temp.pw = value[1];
 							studentList.add(temp); // arrayList에 temp temp의 값 추가
 						}
-						manager.load_student(studentList); // 새로 만든 studentList의 값 대입
+						manager.load_student(studentList); // 새로 만든 210번째 줄 studentList의 값을 기존 studentList에 값 대입
 						
 					}
-					manager.print_student(); // 출력
+					manager.print_student(); // 출력 
 					
 				}
 				catch (Exception e) {e.printStackTrace();}
