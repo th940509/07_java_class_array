@@ -1,4 +1,4 @@
-//2021/04/16 17:05 ~
+
 package step7_01.classArray;
 
 
