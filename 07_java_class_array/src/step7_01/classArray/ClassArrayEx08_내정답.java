@@ -122,7 +122,6 @@ public class ClassArrayEx08_내정답 {
 		}
 		scan.close();
 
-
 	}
 
 }

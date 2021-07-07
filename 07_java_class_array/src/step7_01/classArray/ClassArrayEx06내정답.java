@@ -1,6 +1,6 @@
 package step7_01.classArray;
-//2021/04/16 18:25 ~ 18:32
-//2021/04/19 14:13 ~ 14:19
+//*분석 2021/04/16 18:25 ~ 18:32
+//      2021/04/19 14:13 ~ 14:19
 class Member_1{
 	
 	String name;
@@ -48,6 +48,8 @@ public class ClassArrayEx06내정답 {
 	}
 
 }
+
+// 분석내용
 // num: 1001
 // name: 김철수
 // num: 1002
